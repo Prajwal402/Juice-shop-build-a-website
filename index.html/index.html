@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ganesh Fresh Juice Centre</title>
+  <style>
+    :root{
+      --accent: #ff7a00;
+      --brand: hsl(193, 95%, 65%);
+      --muted-bg: #f9f9f9;
+      --card-bg: #ffffff;
+      --radius: 12px;
+      --shadow: 0 8px 20px rgba(6,10,30,0.08);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, hsl(93,100%,80%) 0%, hsl(93,100%,72%) 100%);
+      color:#111;
+      scroll-behavior:smooth;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    header{
+      padding:18px 20px;
+      text-align:center;
+      position:relative;
+      background: linear-gradient(90deg,#68dcff 0%, #a2f1ff 100%);
+      color:#c40b0b;
+    }
+/* Top banner for promotions */
+.top-banner{
+display:inline-block;
+background: linear-gradient(110deg,#ff6a00,#ffcc00);
+color:#06111a;
+padding:9px 64px;
+border-radius:999px;
+font-weight:900;
+box-shadow: 0 8px 30px rgba(255,110,0,0.12);
+margin-bottom:10px;
+font-size:0.90rem;
+}
+
+    header h1{margin:0;font-size:1.8rem;letter-spacing:0.6px}
+    header h2{margin:4px 0 0;font-size:1rem;color:#3f9c05; font-weight:600}
+
+    nav{
+      position:sticky;
+      top:0;
+      z-index:60;
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      padding:10px 12px;
+      background: linear-gradient(90deg,#e45ddd 0%, #ff6fa3 100%);
+      transition:box-shadow .25s, transform .2s;
+      box-shadow: none;
+    }
+    nav.scrolled{ box-shadow: 0 6px 18px rgba(0,0,0,0.12); transform: translateY(-1px); }
+    nav a{
+      color:#ac0606;
+      text-decoration:none;
+      font-weight:700;
+      padding:6px 12px;
+      border-radius:999px;
+      transition:transform .18s, background .18s;
+      font-size:0.95rem;
+    }
+    nav a:hover{ transform: translateY(-3px); text-decoration:none; }
+
+    .hero{
+      height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:hsla(0, 0%, 100%, 0.957);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      margin-bottom:30px;
+      border-bottom-left-radius:24px;
+      border-bottom-right-radius:24px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)),
+        url("j1.jpg") center/cover no-repeat;
+      box-shadow:var(--shadow);
+    }
+    .hero .content{
+      z-index:2;
+      transform:translateY(0);
+      animation:hero-zoom 8s ease-in-out infinite;
+    }
+    .hero h2{font-size:2.4rem;margin:0 0 6px;text-shadow:0 6px 18px rgba(0,0,0,0.35)}
+    .hero p{margin:0;font-weight:600}
+
+    @keyframes hero-zoom{
+      0%{transform:scale(1) translateY(0)}
+      50%{transform:scale(1.04) translateY(-6px)}
+      100%{transform:scale(1) translateY(0)}
+    }
+
+    .bubble{
+      position:absolute;
+      width:120px;height:120px;border-radius:50%;
+      background:linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+      filter: blur(14px);
+      animation:floatUp 10s infinite ease-in-out;
+      pointer-events:none;
+      opacity:0.85;
+    }
+    .bubble.b1{left:6%; top:10%; animation-delay:0s}
+    .bubble.b2{right:8%; top:18%; width:180px;height:180px; animation-duration:14s}
+    @keyframes floatUp{
+      0%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-18px) scale(1.05)}
+      100%{transform:translateY(0) scale(1)}
+    }
+
+    section{padding:36px 18px; max-width:1200px; margin:0 auto}
+    h1,h2{color:#1a1ad3}
+    h1{font-size:2.9rem}
+    h2{font-size:1.9rem}
+
+    .menu-category{
+      margin:30px 0 12px;
+      background: linear-gradient(90deg,#ff9b3c, #e67e22);
+      color:#020202;
+      font-size:1.3rem;
+      font-weight:800;
+      padding:10px 14px;
+      border-radius:10px;
+      display:inline-block;
+      box-shadow:0 6px 18px rgba(230,126,34,0.16);
+    }
+
+    .menu-items{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+      gap:18px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      padding:12px;
+      box-shadow:0 8px 16px rgba(15, 20, 40, 0.06);
+      transition:transform .28s ease, box-shadow .28s ease;
+      transform-origin:center;
+      overflow:hidden;
+      opacity:0;
+      transform: translateY(18px) scale(.995);
+      border:1px solid rgba(10,10,10,0.03);
+    }
+    .card.visible{ opacity:1; transform:translateY(0) scale(1); transition: all .5s cubic-bezier(.2,.9,.2,1) }
+    .card:hover{ transform: translateY(-8px) scale(1.02); box-shadow: 0 18px 40px rgba(6,10,30,0.12) }
+    .card img{
+      width:100%; height:150px; object-fit:cover; border-radius:10px;
+      display:block;
+      background:linear-gradient(90deg,#873131,#fff8f8);
+    }
+    .card h3{margin:10px 0 4px;font-size:1.05rem}
+    .card p{margin:0;font-weight:700;color:#ff6600}
+
+    .delivery-box{
+      border-radius:12px;
+      padding:18px;
+      margin:18px auto;
+      max-width:680px;
+      background: linear-gradient(180deg,#96dff0,#9de4f4);
+      border: 3px solid rgba(255,165,0,0.12);
+      box-shadow: 0 12px 30px rgba(255,140,0,0.06);
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    form{ display:flex; flex-direction:column; max-width:900px; margin:16px auto; gap:14px; }
+    input, textarea, select{
+      padding:12px;border-radius:10px;border:1px solid #e3e3e3;font-size:1rem;
+      transition:box-shadow .18s, transform .12s;
+    }
+    input:focus, textarea:focus, select:focus{ outline:none; box-shadow: 0 6px 18px rgba(0,0,0,0.06); transform: translateY(-2px) }
+    button{ background:var(--accent); color:white; border:none; padding:12px 16px; border-radius:999px; font-weight:700; cursor:pointer; }
+    .btn{ display:inline-block; background:var(--accent); color:white; padding:8px 14px; border-radius:8px; text-decoration:none; font-weight:700 }
+
+    .cta-pulse{
+      position:relative;
+      display:inline-block;
+    }
+    .cta-pulse::after{
+      content:"";
+      position:absolute;
+      left:50%; top:50%;
+      width:120%; height:120%;
+      transform:translate(-50%,-50%);
+      border-radius:999px;
+      background: radial-gradient(circle, rgba(255,122,0,0.25), transparent 40%);
+      animation:pulse 2s infinite;
+      z-index:-1;
+    }
+    @keyframes pulse{ 0%{transform:translate(-50%,-50%) scale(.9);opacity:1} 100%{transform:translate(-50%,-50%) scale(1.4);opacity:0} }
+
+    .order-item{ display:flex; gap:10px; align-items:center }
+    .order-item select, .order-item input{ flex:1; min-width:0 }
+
+    footer{ background:#222; color:#fff; padding:18px; text-align:center; border-top-left-radius:12px; border-top-right-radius:12px; margin-top:20px }
+
+    /* Floating mobile order button */
+    .floating-order {
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:120;
+      width:56px;height:56px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(180deg,#ff7a00,#ff5c00);
+      color:white;font-weight:800;
+      box-shadow:0 14px 30px rgba(0,0,0,0.18);
+      cursor:pointer;
+      border:4px solid rgba(255,255,255,0.06);
+      transition:transform .18s;
+    }
+    .floating-order:hover{ transform:translateY(-6px) scale(1.03) }
+
+    @media (min-width:900px){ .floating-order{ display:none } }
+
+    .totals {
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:flex-end;
+      font-weight:700;
+    }
+    .totals .box{ background:#fff;padding:8px 12px;border-radius:10px;border:1px solid #eee; box-shadow:0 6px 18px rgba(0,0,0,0.04) }
+
+    .print-btn { background:transparent; color:#04183f; border:2px solid #06285a; padding:8px 12px; border-radius:8px; font-weight:700; cursor:pointer }
+
+    .muted{color:#555}
+    .small{font-size:0.9rem}
+
+    /* Confirmation overlay */
+    .confirm-overlay {
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:200;
+      background: rgba(0,0,0,0.4); visibility:hidden; opacity:0; transition:opacity .18s, visibility .18s;
+    }
+    .confirm-overlay.visible { visibility:visible; opacity:1 }
+    .confirm-box {
+      background:#fff; padding:20px; border-radius:12px; max-width:420px; width:92%; box-shadow:0 18px 40px rgba(0,0,0,0.18); text-align:center;
+    }
+    .confirm-box h3{margin:0 0 8px}
+    .confirm-box p{margin:6px 0}
+    .confirm-box .orderno { font-weight:900; color:#ff6b00; font-size:1.2rem; letter-spacing:0.6px }
+    .confirm-box button { margin-top:12px; padding:10px 14px; border-radius:8px; }
+
+    /* Owner dashboard and tracking */
+    .owner-panel{ position:fixed; left:18px; bottom:18px; z-index:250; background:#fff; padding:12px; border-radius:10px; box-shadow:0 18px 40px rgba(0,0,0,0.12); max-width:360px; display:none; width:360px; }
+    .owner-list{ max-height:340px; overflow:auto; margin-top:8px; }
+    .owner-item{ border-bottom:1px dashed #eee; padding:8px 0; }
+    .tracking-panel{ position:fixed; right:18px; bottom:18px; z-index:250; background:#fff; padding:12px; border-radius:10px; box-shadow:0 18px 40px rgba(0,0,0,0.12); max-width:360px; display:none; }
+    .tracking-panel .small{ font-size:0.9rem; color:#444; }
+
+    /* small UPI QR styling */
+    .upi-qr{max-width:140px;border-radius:8px;border:1px solid #eee;padding:6px;background:#fff}
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Ganesh Fresh Juice Centre</h1>
+    <h2>Fresh, Healthy & Natural Juices</h2>
+    <div style="margin-top:10px">
+      <button class="print-btn" id="printMenuBtn" title="Printable menu">📄 Print / Download Menu</button>
+    </div>
+  </header>
+
+  <nav id="mainNav">
+    <a href="#home">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#delivery">Delivery</a>
+    <a href="#contact" class="cta-pulse">Contact</a>
+    <a id="ownerToggle" href="#" style="margin-left:10px;background:#fff;color:#333;padding:6px 10px;border-radius:8px;text-decoration:none">Owner Dashboard</a>
+  </nav>
+
+  <div class="hero" id="home">
+    <div class="bubble b1" aria-hidden="true"></div>
+    <div class="bubble b2" aria-hidden="true"></div>
+    <div class="content" role="img" aria-label="Fresh juice hero">
+      <h2>Welcome to Ganesh Fresh Juice Centre</h2>
+      <p style="margin-top:10px;font-size:1.05rem">Natural taste, juice made with love — open 9 AM – 9 PM</p>
+      <div style="margin-top:16px">
+        <a href="#menu" class="btn" style="border-radius:999px">See Menu</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Section (UNCHANGED) -->
+  <section id="menu">
+    <h1>Our Menu</h1>
+
+    <!-- Juices -->
+    <div class="menu-category">🍹 Juices</div>
+    <div class="menu-items">
+      <div class="card"><img src="apple.jpg" alt=""><h3>Apple Juice</h3><p>₹75</p></div>
+      <div class="card"><img src="orange .jpg" alt=""><h3>Orange Juice</h3><p>₹55</p></div>
+      <div class="card"><img src="pain apple.jpg" alt=""><h3>Pineapple Juice</h3><p>₹55</p></div>
+      <div class="card"><img src="grapes .jpg" alt=""><h3>Grape Juice</h3><p>₹55</p></div>
+      <div class="card"><img src="puply grape.jpg" alt=""><h3>Pulpy Grape</h3><p>₹55</p></div>
+      <div class="card"><img src="water million .jpg" alt=""><h3>Watermelon Juice</h3><p>₹45</p></div>
+      <div class="card"><img src="karbuja.jpg" alt=""><h3>Musk Melon Juice</h3><p>₹55</p></div>
+      <div class="card"><img src="carrot .jpg" alt=""><h3>Carrot Juice</h3><p>₹65</p></div>
+      <div class="card"><img src="abc.webp" alt=""><h3>ABC Juice</h3><p>₹85</p></div>
+      <div class="card"><img src="nalikayi.jpg" alt=""><h3>Amla Juice</h3><p>₹65</p></div>
+      <div class="card"><img src="bitrot.jpg" alt=""><h3>Beetroot Juice</h3><p>₹65</p></div>
+      <div class="card"><img src="lemon juice.jpg" alt=""><h3>Lemon Juice</h3><p>₹35</p></div>
+      <div class="card"><img src="mosubi.jpg" alt=""><h3>Mosambi Juice</h3><p>₹55</p></div>
+      <div class="card"><img src="Fruit bowl.jpg" alt=""><h3>Fruit Bowl</h3><p>₹85</p></div>
+      <div class="card"><img src="mosubi.jpg" alt=""><h3> Pure Mosambi Juice {without water}</h3><p>₹75</p></div>
+      <div class="card"><img src="orange .jpg" alt=""><h3>Pure orange Juice {Without water}</h3><p>₹75</p></div>
+    </div>
+
+    <!-- Shakes -->
+    <div class="menu-category">🥤 Shakes</div>
+    <div class="menu-items">
+      <div class="card"><img src="apple shake.jpg"><h3>Apple Shake</h3><p>₹85</p></div>
+      <div class="card"><img src="bananas .jpg"><h3>Banana Shake</h3><p>₹50</p></div>
+      <div class="card"><img src="butter fruits .jpg"><h3>Butter Fruit Shake</h3><p>₹90</p></div>
+      <div class="card"><img src="papaya.jpg"><h3>Papaya Shake</h3><p>₹55</p></div>
+      <div class="card"><img src="promogante.jpg"><h3>Pomegranate Shake</h3><p>₹80</p></div>
+      <div class="card"><img src="mango.jpeg"><h3>Mango Shake</h3><p>₹75</p></div>
+      <div class="card"><img src="kiwi .jpg"><h3>Kiwi Shake</h3><p>₹75</p></div>
+      <div class="card"><img src="anjeer.jpg"><h3>Anjeer Shake</h3><p>₹75</p></div>
+      <div class="card"><img src="dry fruit.jpg"><h3>Dry Fruit Shake</h3><p>₹125</p></div>
+      <div class="card"><img src="dates.jpg"><h3>Dates Shake</h3><p>₹80</p></div>
+      <div class="card"><img src="orio shake.jpg"><h3>Oreo Shake</h3><p>₹70</p></div>
+      <div class="card"><img src="cold badam.jpg"><h3>Cold Badam</h3><p>₹55</p></div>
+      <div class="card"><img src="cold cofee.jpg"><h3>Cold Coffee</h3><p>₹65</p></div>
+      <div class="card"><img src="chocolate .jpg"><h3>Chocolate Coffee</h3><p>₹75</p></div>
+      <div class="card"><img src="rose milk.jpg"><h3>Rose Milk</h3><p>₹55</p></div>
+      <div class="card"><img src="sharja.jpg"><h3>Sharja</h3><p>₹75</p></div>
+      <div class="card"><img src="trender coco.jpg"><h3>Tender Coconut Shake</h3><p>₹85</p></div>
+      <div class="card"><img src="sapota.jpg"><h3>Sapota Shake</h3><p>₹65</p></div>
+    </div>
+
+    <!-- Lassi -->
+    <div class="menu-category">🥛 Lassi</div>
+    <div class="menu-items">
+      <div class="card"><img src="sweet lassi.jpg"><h3>Sweet Lassi</h3><p>₹50</p></div>
+      <div class="card"><img src="banana lassi.jpg"><h3>Banana Lassi</h3><p>₹65</p></div>
+      <div class="card"><img src="apple lassi.jpg"><h3>Apple Lassi</h3><p>₹70</p></div>
+      <div class="card"><img src="mango lassi.jpeg"><h3>Mango Lassi</h3><p>₹70</p></div>
+      <div class="card"><img src="pinapple lassi.jpg"><h3>Pineapple Lassi</h3><p>₹65</p></div>
+      <div class="card"><img src="fruit lassi.jpg"><h3>Fruit Lassi</h3><p>₹80</p></div>
+    </div>
+
+    <!-- Ice Cream Shakes -->
+    <div class="menu-category">🍨 Ice Cream Shakes</div>
+    <div class="menu-items">
+      <div class="card"><img src="butter scorch ice cream .jpg"><h3>Butterscotch Shake</h3><p>₹85</p></div>
+      <div class="card"><img src="chocolate .jpg"><h3>Chocolate Shake</h3><p>₹85</p></div>
+      <div class="card"><img src="pista ice cream shake.jpg"><h3>Pista Shake</h3><p>₹85</p></div>
+      <div class="card"><img src="strawberry .jpg"><h3>Strawberry Shake</h3><p>₹85</p></div>
+      <div class="card"><img src="vanila ice cream .jpg"><h3>Vanilla Shake</h3><p>₹85</p></div>
+    </div>
+
+    <!-- Sugarcane -->
+    <div class="menu-category">🥤 Sugarcane Juice</div>
+    <div class="menu-items">
+      <div class="card"><img src="sugar_cane_juice.webp"><h3>Sugarcane Juice 1 Ltr</h3><p>₹115</p></div>
+      <div class="card"><img src="sugarcane-juice2.jpg"><h3>Sugarcane Juice 2 Ltr</h3><p>₹215</p></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>At Ganesh Fresh Juice Centre, we serve the freshest and healthiest juices made from quality fruits. Grab a healthy drink, quick meal, or a refreshing shake — our mission is to refresh you with natural taste in every sip!</p>
+  </section>
+
+  <!-- Meals (UNCHANGED) -->
+  <section>
+    <div class="menu-category">🍱 Meals</div>
+    <div class="menu-items">
+      <div class="card"><img src="healthy meal.jpg" alt="Healthy Meal"><h3>Healthy Meal</h3><p>₹85</p></div>
+      <div class="card"><img src="protein meal.jpg" alt="Protein Meal"><h3>Protein Meal</h3><p>₹90</p></div>
+    </div>
+  </section>
+
+  <!-- Gallery (UNCHANGED) -->
+  <section id="gallery">
+    <h2>Our Gallery</h2>
+    <p class="muted small">📸 Take a look at our shop and fresh juice creations!</p>
+    <div class="menu-items">
+      <div class="card"><img src="g1.jpg" alt="Shop View"><h3>Our Juice Centre</h3></div>
+      <div class="card"><img src="g2.jpg" alt="Shop View"><h3>Our Juice Centre</h3></div>
+      <div class="card"><img src="g3.jpg" alt="Shop View"><h3>Our Juice Centre</h3></div>
+      <div class="card"><img src="g1.jpg" alt="Inside Shop"><h3>Inside the Shop</h3></div>
+      <div class="card"><img src="g4.jpg" alt="Benifits"><h3>Inside the Shop</h3></div>
+      <div class="card"><img src="g6.jpg" alt="Benifit"><h3>Inside the Shop</h3></div>
+      <div class="card"><img src="g5.jpg" alt="Benifits"><h3>Inside the Shop</h3></div>
+      <div class="card"><img src="j3.jpg" alt="Fresh Juice"><h3>Fresh Juices</h3></div>
+      <div class="card"><img src="pain apple.jpg" alt="Lassi"><h3>Creamy Lassi</h3></div>
+      <div class="card"><img src="sugar_cane_juice.webp" alt="Sugarcane"><h3>Sugarcane Juice</h3></div>
+    </div>
+  </section>
+
+  <!-- DELIVERY / ORDER FORM (updated: auto-distance, UPI, COD, shop link) -->
+  <section id="delivery">
+    <h1>Home Delivery</h1>
+    <div class="delivery-box">
+      <div>
+        <p style="margin:0;font-size:1.05rem">🚚 We now offer <b>home delivery</b> for your favorite juices and shakes!</p>
+        <p class="small muted" style="margin-top:6px">✔ Minimum Order: 199 &nbsp; ✔ Delivery Hours: 9 AM – 9 PM &nbsp; ✔ Delivery Radius: 2 km</p>
+        <p class="small muted" style="margin-top:6px">Free delivery within 2 km. Above 2 km: ₹15 per extra km.</p>
+        <div class="top-banner">🎉 <strong>Sunday Special:</strong> Buy any 6 items — Get <span class="highlight">1 Watermelon Juice FREE🍉🍉 </span></div>
+      </div>
+      <div style="text-align:right">
+        <a href="#contact" class="btn">Contact / Order</a>
+      </div>
+    </div>
+
+    <h3>Place Your Order Online</h3>
+    <form id="orderForm">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <textarea name="address" placeholder="Delivery Address" rows="3" required></textarea>
+
+      <!-- Distance input now auto-detects from user's device if allowed -->
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <label class="small muted" style="margin-right:8px">Distance from shop (km):</label>
+        <input type="number" id="distanceInput" step="0.1" min="0" value="1" style="width:140px" />
+        <div class="small muted" id="distanceSource" style="margin-left:8px">(manual)</div>
+        <button type="button" id="detectDistanceBtn" style="margin-left:8px">Detect my location</button>
+      </div>
+
+      <div id="cart">
+        <div class="order-item">
+          <select class="item" required>
+            <option value="">Select Item</option>
+            <optgroup label="Juices">
+              <option>Apple Juice - ₹75</option>
+              <option>Orange Juice - ₹55</option>
+              <option>Mosambi Juice - ₹55</option>
+              <option>Pineapple Juice - ₹55</option>
+              <option>Grape Juice - ₹55</option>
+              <option>Pulpy Grape - ₹55</option>
+              <option>Watermelon Juice - ₹45</option>
+              <option>Musk Melon Juice - ₹55</option>
+              <option>Carrot Juice - ₹65</option>
+              <option>ABC Juice - ₹85</option>
+              <option>Amla Juice - ₹65</option>
+              <option>Beetroot Juice - ₹65</option>
+              <option>Lemon Juice - ₹35</option>
+              <option>Fruit Bowl - ₹85</option>
+              <option> Pure Orange Juice - ₹75</option>
+              <option>Pure Mosambi Juice - ₹75</option>
+             
+            </optgroup>
+            <optgroup label="Shakes">
+              <option>Apple Shake - ₹75</option>
+              <option>Banana Shake - ₹50</option>
+              <option>Butter Fruit Shake - ₹90</option>
+              <option>Papaya Shake - ₹55</option>
+              <option>Pomegranate Shake - ₹80</option>
+              <option>Mango Shake - ₹75</option>
+              <option>Kiwi Shake - ₹75</option>
+              <option>Anjeer Shake - ₹75</option>
+              <option>Dry Fruit Shake - ₹125</option>
+              <option>Dates Shake - ₹80</option>
+              <option>Oreo Shake - ₹70</option>
+              <option>Cold Badam - ₹55</option>
+              <option>Cold Coffee - ₹65</option>
+              <option>Chocolate Coffee - ₹75</option>
+              <option>Rose Milk - ₹55</option>
+              <option>Sharja - ₹75</option>
+              <option>Tender Coconut Shake - ₹85</option>
+              <option>Sapota Shake - ₹65</option>
+            </optgroup>
+            <optgroup label="Lassi">
+              <option>Sweet Lassi - ₹50</option>
+              <option>Banana Lassi - ₹65</option>
+              <option>Apple Lassi - ₹70</option>
+              <option>Mango Lassi - ₹70</option>
+              <option>Pineapple Lassi - ₹65</option>
+              <option>Fruit Lassi - ₹80</option>
+            </optgroup>
+            <optgroup label="Ice Cream Shakes">
+              <option>Butterscotch Shake - ₹85</option>
+              <option>Chocolate Shake - ₹85</option>
+              <option>Pista Shake - ₹85</option>
+              <option>Strawberry Shake - ₹85</option>
+              <option>Vanilla Shake - ₹85</option>
+            </optgroup>
+            <optgroup label="Sugarcane Juice">
+              <option>Sugarcane Juice 1 Ltr - ₹115</option>
+              <option>Sugarcane Juice 2 Ltr - ₹210</option>
+            </optgroup>
+
+            <optgroup label="Meals">
+              <option>Healthy Meal - ₹85</option>
+              <option>Protein Meal - ₹90</option>
+            </optgroup>
+
+          </select>
+          <input type="number" class="quantity" placeholder="Qty" min="1" value="1" required />
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div style="display:flex;gap:8px;align-items:center">
+          <button type="button" onclick="addItem()">➕ Add Another Item</button>
+          <button type="button" onclick="removeLastItem()" title="Remove last item">➖ Remove Last</button>
+        </div>
+
+        <div class="totals" id="totalsDisplay" aria-live="polite">
+          <div class="box">Subtotal: <span id="subtotal">₹0</span></div>
+          <div class="box">Delivery: <span id="deliveryFee">₹0</span></div>
+          <div class="box">Total: <span id="grandTotal">₹0</span></div>
+        </div>
+      </div>
+
+      <!-- PAYMENT OPTIONS: COD and UPI -->
+      <div style="margin-top:6px">
+        <h4 style="margin:6px 0">Payment method</h4>
+        <label style="margin-right:12px"><input type="radio" name="payment" value="cod" checked> Cash on Delivery (COD)</label>
+        <label style="margin-right:12px"><input type="radio" name="payment" value="upi"> Online (UPI)</label>
+
+        <div id="upiOptions" style="display:none;margin-top:10px;align-items:center;gap:12px">
+          <div>
+            <div class="small">UPI ID: <strong id="upiIdDisplay">jnaneshappu85-1@oksbi</strong></div>
+            <div style="margin-top:6px;display:flex;gap:8px">
+              <button type="button" id="copyUpiBtn">Copy UPI ID</button>
+              <button type="button" id="upiPayBtn">Open UPI App (mobile)</button>
+            </div>
+          </div>
+          <div>
+            <!-- put your QR image in same folder as this page and name it 'upi_qr.jpg' or change the src -->
+            <img id="upiQrImg" class="upi-qr" src="qrcode.jpg" alt="UPI QR" onerror="this.style.display='none'"/>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button type="submit" id="submitOrder" class="cta-pulse">Submit Order via WhatsApp >>>Also Location</button>
+      </div>
+
+      <div id="orderWarnings" style="color:#b71c1c;font-weight:700;margin-top:8px"></div>
+    </form>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>📍 <strong>Location:</strong> GR Building, Nagavarapalya Main Road Bangalore 560093</p>
+    <p>📞 <strong>Phone:</strong> +91 99025 93591</p>
+    <P>   Mail: jnaneshappu85@gmail.com  </P>
+    <p class="small">💬 WhatsApp: <a class="btn" id="waChat" href="https://wa.me/qr/GLVIIQSHMJQDG1" target="_blank">Chat Now</a></p>
+    <p class="small">📍 Google Maps Location: <a href="https://maps.app.goo.gl/oF3CBc7Tn2J6uxHv5" target="_blank">Open in Google Maps</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Ganesh Fresh Juice Centre | All Rights Reserved</p>
+  </footer>
+
+  <!-- Floating order button (mobile) -->
+  <div class="floating-order" id="floatOrderBtn" title="Quick order">
+    🛒
+  </div>
+
+  <!-- Tracking panel (keeps original features) -->
+  <div id="trackingPanel" class="tracking-panel" style="display:none" aria-live="polite">
+    <div><strong>Order:</strong> <span id="tpOrderNo">—</span></div>
+    <div style="margin-top:6px"><strong>Last location:</strong></div>
+    <div id="tpCoords" class="small">waiting…</div>
+    <div id="tpAddress" class="small muted" style="margin-top:6px">Address: —</div>
+    <div style="margin-top:6px"><a id="tpMapLink" href="#" target="_blank" class="small">Open in Google Maps</a></div>
+    <div style="margin-top:8px;display:flex;gap:6px">
+      <button id="btnStopShare" style="flex:1;background:#777">Stop Sharing</button>
+      <button id="btnDelivered" style="flex:1;background:#0b853b">Delivered</button>
+    </div>
+    <div id="tpStatus" class="small muted" style="margin-top:8px"></div>
+  </div>
+
+  <!-- Owner dashboard (toggleable) -->
+  <div id="ownerPanel" class="owner-panel">
+    <h4>Owner Dashboard</h4>
+    <div class="small muted">Paste your Apps Script Web App URL (deployed) below and click Apply & Start</div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <input id="appsUrlInput" placeholder="Apps Script Web App URL" style="flex:1;padding:8px" />
+      <button id="applyAppsBtn" style="white-space:nowrap">Apply</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <input id="pollInterval" type="number" value="6" style="width:70px;padding:8px"/>
+      <button id="startOwnerBtn">Start Polling</button>
+      <button id="stopOwnerBtn" disabled>Stop</button>
+    </div>
+
+    <div class="owner-list" id="ownerList" style="margin-top:10px">
+      <div class="small muted">No data — start polling</div>
+    </div>
+    <div style="margin-top:8px" class="small muted">Click a map link to open Google Maps</div>
+  </div>
+
+  <!-- Confirmation overlay -->
+  <div class="confirm-overlay" id="confirmOverlay" aria-hidden="true">
+    <div class="confirm-box" role="dialog" aria-modal="true">
+      <h3>Order Placed</h3>
+      <p>Thank you — your order is being prepared.</p>
+      <p>Order Number:</p>
+      <div class="orderno" id="confirmOrderNo">GFJ-0000</div>
+      <p class="small muted" id="confirmSummary"></p>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:center">
+        <button id="copyOrderBtn">Placed Order</button>
+        <button id="closeConfirmBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /****************************************************************
+     * CONFIG
+     ****************************************************************/
+    // Exact shop coordinates (from your plus-code/address)
+    const SHOP_LAT = 12.9928802;
+    const SHOP_LON = 77.6637468;
+
+    // Payment / shop settings
+    const UPI_ID = "jnaneshappu85-1@oksbi"; // your UPI id
+    const SHOP_PHONE = "919902593591";     // used for WhatsApp messaging
+    const MIN_ORDER = 199;
+    const FREE_RADIUS_KM = 2;
+    const EXTRA_PER_KM = 15;
+
+    // Apps Script endpoint (optional) - set via owner panel or change here
+    let APPS_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL";
+
+    // Your Google Maps short link (included in messages)
+    const SHOP_MAP_SHORTLINK = "https://maps.app.goo.gl/Htv3XTBydDyto7qVA";
+
+    /****************************************************************
+     * Utilities
+     ****************************************************************/
+    function makeWhatsAppUrl(phone, text){ return "https://wa.me/" + phone + "?text=" + encodeURIComponent(text); }
+    document.getElementById("waChat").href = makeWhatsAppUrl(SHOP_PHONE, "Hi Ganesh Fresh Juice Centre! I would like to place an order. Please assist.");
+
+    function toFixedNumber(n, decimals=2){ return Number(n.toFixed(decimals)); }
+
+    // Haversine formula to compute distance in km
+    function haversineKm(lat1, lon1, lat2, lon2){
+      const toRad = v => v * Math.PI / 180;
+      const R = 6371; // earth radius km
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+
+    /****************************************************************
+     * Card reveal on scroll
+     ****************************************************************/
+    function observeCards(){
+      const cards = document.querySelectorAll(".card");
+      if(!('IntersectionObserver' in window)) { cards.forEach(c => c.classList.add("visible")); return; }
+      const obs = new IntersectionObserver((entries, o)=> {
+        entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add("visible"); o.unobserve(en.target); }});
+      }, {threshold:0.12});
+      cards.forEach(c => { if(!c.classList.contains("visible")) obs.observe(c); });
+    }
+    setTimeout(observeCards, 300);
+
+    /****************************************************************
+     * Sticky nav
+     ****************************************************************/
+    const nav = document.getElementById("mainNav");
+    window.addEventListener("scroll", () => { if(window.scrollY>8) nav.classList.add("scrolled"); else nav.classList.remove("scrolled"); });
+
+    /****************************************************************
+     * Cart logic and totals
+     ****************************************************************/
+    function extractPrice(text){
+      const m = text.match(/₹\s*([0-9]+(?:\.[0-9]+)?)/);
+      if(m) return parseFloat(m[1]);
+      const mm = text.match(/(\d+)\s*$/);
+      return mm ? parseFloat(mm[1]) : 0;
+    }
+
+    function calculateTotals(){
+      const items = document.querySelectorAll(".order-item");
+      let subtotal = 0;
+      items.forEach(it => {
+        const sel = it.querySelector(".item");
+        const qty = Number(it.querySelector(".quantity").value) || 0;
+        const text = sel.value || "";
+        const price = extractPrice(text);
+        subtotal += price * qty;
+      });
+      subtotal = Math.round(subtotal);
+
+      let distance = Number(document.getElementById("distanceInput").value) || 0;
+      if(distance < 0) distance = 0;
+      let deliveryFee = 0;
+      if(subtotal === 0) { deliveryFee = 0; }
+      else {
+        if(distance <= FREE_RADIUS_KM) deliveryFee = 0;
+        else { const extraKm = Math.max(0, Math.ceil(distance - FREE_RADIUS_KM)); deliveryFee = extraKm * EXTRA_PER_KM; }
+      }
+      const grandTotal = subtotal + deliveryFee;
+      document.getElementById("subtotal").textContent = "₹" + subtotal;
+      document.getElementById("deliveryFee").textContent = "₹" + deliveryFee;
+      document.getElementById("grandTotal").textContent = "₹" + grandTotal;
+
+      const warnings = document.getElementById("orderWarnings");
+      const submitBtn = document.getElementById("submitOrder");
+      warnings.textContent = "";
+      if(subtotal < MIN_ORDER){
+        warnings.textContent = "Minimum order ₹" + MIN_ORDER + " is required. Add more items.";
+        submitBtn.disabled = true; submitBtn.style.opacity = 0.6; submitBtn.title = "Minimum order not met";
+      } else {
+        submitBtn.disabled = false; submitBtn.style.opacity = 1; submitBtn.title = "Submit Order via WhatsApp";
+      }
+      return {subtotal, deliveryFee, grandTotal};
+    }
+
+    function attachChangeListenersToRow(row){
+      const sel = row.querySelector('.item'); const qty = row.querySelector('.quantity');
+      sel.addEventListener('change', calculateTotals);
+      qty.addEventListener('input', calculateTotals);
+    }
+    document.querySelectorAll('.order-item').forEach(attachChangeListenersToRow);
+    document.getElementById("distanceInput").addEventListener("input", calculateTotals);
+    window.addEventListener("load", calculateTotals);
+
+    function addItem(){
+      const cart = document.getElementById("cart");
+      const template = document.querySelector(".order-item");
+      const clone = template.cloneNode(true);
+      clone.querySelector(".item").selectedIndex = 0;
+      clone.querySelector(".quantity").value = 1;
+      attachChangeListenersToRow(clone);
+      cart.appendChild(clone);
+      calculateTotals();
+    }
+    function removeLastItem(){
+      const cart = document.getElementById("cart");
+      const items = cart.querySelectorAll(".order-item");
+      if(items.length > 1){ items[items.length - 1].remove(); calculateTotals(); }
+      else { alert("You must have at least one item."); }
+    }
+
+    /****************************************************************
+     * UPI & Payment UI
+     ****************************************************************/
+    const upiPanel = document.getElementById('upiOptions');
+    document.querySelectorAll('input[name="payment"]').forEach(r => {
+      r.addEventListener('change', () => {
+        upiPanel.style.display = (document.querySelector('input[name="payment"]:checked').value === 'upi') ? 'flex' : 'none';
+      });
+    });
+    document.getElementById('upiIdDisplay').textContent = UPI_ID;
+
+    document.getElementById('copyUpiBtn').addEventListener('click', () => {
+      navigator.clipboard?.writeText(UPI_ID).then(()=> {
+        const b = document.getElementById('copyUpiBtn'); b.textContent = 'Copied ✓';
+        setTimeout(()=> b.textContent = 'Copy UPI ID', 2000);
+      }).catch(()=> alert('Copy not supported'));
+    });
+
+    function makeUpiUrl(payee, amount=0, note='Payment to Ganesh Fresh Juice Centre'){
+      const params = [
+        `pa=${encodeURIComponent(payee)}`,
+        `pn=${encodeURIComponent("Ganesh Fresh Juice Centre")}`,
+        `tn=${encodeURIComponent(note)}`,
+        `cu=INR`
+      ].join('&');
+      return `upi://pay?${params}`;
+    }
+    document.getElementById('upiPayBtn').addEventListener('click', () => {
+      const url = makeUpiUrl(UPI_ID);
+      window.location.href = url;
+    });
+
+    /****************************************************************
+     * Geolocation -> distance detection
+     ****************************************************************/
+    const distanceSource = document.getElementById('distanceSource');
+    async function setDistanceFromGeolocation(allowUpdateInput=true){
+      if(!navigator.geolocation){ alert("Geolocation not supported in this browser."); return null; }
+      distanceSource.textContent = 'detecting…';
+      try{
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy:true, timeout:10000 });
+        });
+        const lat = pos.coords.latitude, lon = pos.coords.longitude;
+        const km = haversineKm(SHOP_LAT, SHOP_LON, lat, lon);
+        const kmRounded = Math.round(km * 10) / 10;
+        if(allowUpdateInput){
+          const inp = document.getElementById("distanceInput");
+          inp.value = kmRounded;
+          distanceSource.textContent = 'detected (auto)';
+          calculateTotals();
+        } else {
+          distanceSource.textContent = `detected (${kmRounded} km)`;
+        }
+        return {lat, lon, km: kmRounded};
+      } catch(err){
+        console.warn('geolocation error', err);
+        distanceSource.textContent = '(manual)';
+        // do not spam alert on load; only alert when user explicitly requested detection
+        if(allowUpdateInput) alert("Unable to determine location (permission denied or timeout). Please enter distance manually.");
+        return null;
+      }
+    }
+    document.getElementById('detectDistanceBtn').addEventListener('click', () => setDistanceFromGeolocation(true));
+
+    // Attempt auto-detect once on load (best-effort)
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        setDistanceFromGeolocation(true).catch(()=>{/*fail silently*/});
+      }, 800);
+    });
+
+    /****************************************************************
+     * Order submission (WhatsApp + optional Apps Script)
+     ****************************************************************/
+    function generateOrderNumber(){
+      const now = new Date();
+      const pad = (n,d=2) => String(n).padStart(d,'0');
+      const YYYY = now.getFullYear(), MM = pad(now.getMonth()+1), DD = pad(now.getDate());
+      const hh = pad(now.getHours()), mm = pad(now.getMinutes()), ss = pad(now.getSeconds());
+      const rand = Math.floor(Math.random() * 900) + 100;
+      return `GFJ-${YYYY}${MM}${DD}-${hh}${mm}${ss}-${rand}`;
+    }
+
+    document.getElementById("orderForm").addEventListener("submit", async function(e){
+      e.preventDefault();
+      const totals = calculateTotals();
+      if(totals.subtotal < MIN_ORDER){ alert("Minimum order ₹" + MIN_ORDER + " is required. Please add more items."); return; }
+
+      const name = this.name.value.trim();
+      const phone = this.phone.value.trim();
+      const address = this.address.value.trim();
+      const distance = Number(document.getElementById("distanceInput").value) || 0;
+      const payment = document.querySelector('input[name="payment"]:checked').value;
+      const itemsEls = document.querySelectorAll(".order-item");
+      const items = [];
+      itemsEls.forEach(it => {
+        const item = it.querySelector(".item").value.trim();
+        const qty = Number(it.querySelector(".quantity").value) || 0;
+        if(item && qty>0) items.push(item + " x " + qty);
+      });
+
+      const currentOrderNo = generateOrderNumber();
+      document.getElementById("confirmOrderNo").textContent = currentOrderNo;
+      document.getElementById("confirmSummary").textContent = `Total: ₹${totals.grandTotal} · Items: ${items.length}`;
+      document.getElementById("confirmOverlay").classList.add("visible");
+
+      // best-effort get precise location for tracking
+      let detectedLoc = null;
+      try{
+        detectedLoc = await new Promise((resolve, reject) => {
+          if(!navigator.geolocation) return reject('no geolocation');
+          navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy:true, timeout:10000 });
+        });
+        detectedLoc = { lat: detectedLoc.coords.latitude, lon: detectedLoc.coords.longitude, accuracy: detectedLoc.coords.accuracy };
+      }catch(err){
+        detectedLoc = null; // proceed without location
+      }
+
+      // payload for Apps Script (if configured)
+      const payload = {
+        action: "create_order",
+        orderNo: currentOrderNo,
+        name, phone, address, distance,
+        items, subtotal: totals.subtotal, delivery: totals.deliveryFee, total: totals.grandTotal,
+        paymentMethod: payment,
+        upiId: (payment === 'upi') ? UPI_ID : '',
+        location: detectedLoc,
+        mapLink: detectedLoc ? `https://www.google.com/maps/search/?api=1&query=${detectedLoc.lat},${detectedLoc.lon}` : '',
+        timestamp: new Date().toISOString()
+      };
+
+      // post to Apps Script if URL present
+      try{
+        const url = APPS_SCRIPT_URL || document.getElementById('appsUrlInput')?.value?.trim();
+        if(url && !url.includes('YOUR_GOOGLE_APPS_SCRIPT_URL')){
+          fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+            .catch(err=>console.warn('POST to Apps Script failed', err));
+        }
+      }catch(err){ console.warn('post error', err); }
+
+      // Build WhatsApp message and include shop map shortlink
+      const lines = [
+        "🍹 New Order",
+        `Order No: ${payload.orderNo}`,
+        `Name: ${name}`,
+        `Phone: ${phone}`,
+        `Address: ${address}`,
+        `Distance (km): ${distance}`,
+        "Items:",
+        ...(items || []),
+        `Subtotal: ₹${totals.subtotal}`,
+        `Delivery: ₹${totals.deliveryFee}`,
+        `Total: ₹${totals.grandTotal}`,
+        `Payment: ${payment === 'cod' ? 'Cash on Delivery' : 'UPI (' + UPI_ID + ')' }`,
+        `Shop: ${SHOP_MAP_SHORTLINK}`
+      ];
+      if(payload.mapLink) lines.push(`Location: ${payload.mapLink}`);
+      const msg = lines.join("\n");
+      window.open(makeWhatsAppUrl(SHOP_PHONE, msg), '_blank');
+
+      if(payment === 'upi') {
+        alert('You selected UPI. Please pay ₹' + totals.grandTotal + ' using the UPI ID shown or scan the shop QR code. After paying, inform us on WhatsApp.');
+      }
+    });
+
+    /****************************************************************
+     * Tracking controls (keeps earlier behavior placeholders)
+     ****************************************************************/
+    let watchId = null;
+    let trackingActive = false;
+    function startWatchPosition(){ /* implement if you want live tracking started from client */ }
+    function stopTracking(reason='stopped_by_customer'){
+      if(watchId !== null && navigator.geolocation.clearWatch){ navigator.geolocation.clearWatch(watchId); watchId = null; }
+      trackingActive = false;
+      document.getElementById('tpStatus').textContent = 'Not sharing';
+      if(typeof(APPS_SCRIPT_URL) !== 'undefined' && APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes('YOUR_GOOGLE_APPS_SCRIPT_URL')){
+        fetch(APPS_SCRIPT_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'stop_sharing', reason, timestamp: new Date().toISOString()}) }).catch(()=>{});
+      }
+    }
+    document.getElementById('btnDelivered')?.addEventListener('click', ()=>{ if(!confirm('Mark order as delivered?')) return; stopTracking('delivered_by_customer'); alert('Marked delivered'); });
+    document.getElementById('btnStopShare')?.addEventListener('click', ()=>{ if(!confirm('Stop sharing location?')) return; stopTracking('stopped_by_customer'); alert('Location sharing stopped.'); });
+
+    /****************************************************************
+     * Owner dashboard (polling)
+     ****************************************************************/
+    document.getElementById('ownerToggle').addEventListener('click', function(e){ e.preventDefault(); const panel = document.getElementById('ownerPanel'); panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none'; });
+
+    document.getElementById('applyAppsBtn').addEventListener('click', ()=> {
+      const v = document.getElementById('appsUrlInput').value.trim();
+      if(!v) return alert('Paste your deployed Apps Script Web App URL first.');
+      APPS_SCRIPT_URL = v;
+      alert('Apps Script URL applied.');
+    });
+
+    let ownerPoller = null;
+    document.getElementById('startOwnerBtn').addEventListener('click', ()=> {
+      const url = document.getElementById('appsUrlInput').value.trim() || APPS_SCRIPT_URL;
+      if(!url || url.includes('YOUR_GOOGLE_APPS_SCRIPT_URL')) return alert('Set your Apps Script Web App URL (deploy Apps Script first).');
+      const secs = Math.max(2, Number(document.getElementById('pollInterval').value) || 6);
+      if(ownerPoller) clearInterval(ownerPoller);
+      fetchOwnerData();
+      ownerPoller = setInterval(fetchOwnerData, secs*1000);
+      document.getElementById('startOwnerBtn').disabled = true; document.getElementById('stopOwnerBtn').disabled = false;
+    });
+    document.getElementById('stopOwnerBtn').addEventListener('click', ()=> { if(ownerPoller) clearInterval(ownerPoller); ownerPoller = null; document.getElementById('startOwnerBtn').disabled = false; document.getElementById('stopOwnerBtn').disabled = true; });
+
+    async function fetchOwnerData(){
+      const url = APPS_SCRIPT_URL || document.getElementById('appsUrlInput').value.trim();
+      if(!url) { document.getElementById('ownerList').innerHTML = '<div class="small muted">No Apps Script URL set</div>'; return; }
+      try{
+        const res = await fetch(url);
+        const json = await res.json();
+        if(json.status !== 'ok'){ document.getElementById('ownerList').innerHTML = '<div class="small muted">No data</div>'; return; }
+        const rows = json.data || [];
+        const html = rows.map(r=>{
+          const map = r.mapLink || (r.lat && r.lon ? `https://www.google.com/maps/search/?api=1&query=${r.lat},${r.lon}` : '#');
+          const addr = r.addressDetected ? `<div class="small muted">Detected: ${r.addressDetected}</div>` : '';
+          return `<div class="owner-item"><div><strong>Order:</strong> ${r.orderNo || '(n/a)'}</div><div class="small muted">${r.timestamp||''} · ${r.action||''}</div><div style="margin-top:6px">${r.name||''} · ${r.phone||''}</div>${addr}<div style="margin-top:6px"><a href="${map}" target="_blank" class="small">Open in Google Maps</a></div></div>`;
+        }).join('');
+        document.getElementById('ownerList').innerHTML = html || '<div class="small muted">No orders yet</div>';
+      }catch(err){
+        document.getElementById('ownerList').innerHTML = '<div class="small muted">Error fetching — check URL/deployment</div>';
+      }
+    }
+
+    /****************************************************************
+     * Print menu
+     ****************************************************************/
+    document.getElementById("printMenuBtn").addEventListener("click", function(){
+      const header = `<div style="text-align:center;margin-bottom:10px"><h1>Ganesh Fresh Juice Centre - Menu</h1><p>GR Building, Nagavarapalya Main Road Bangalore 560093 | +91 99025 93591</p></div>`;
+      const styles = `<style>body{font-family: Arial;padding:20px;color:#111}h1{font-size:18px;margin-bottom:6px}.menu-category{font-weight:800;margin-top:12px}</style>`;
+      const cards = document.querySelectorAll("#menu .card");
+      let content = "<div>";
+      let currentCategory = "";
+      cards.forEach(c => {
+        const cat = c.closest(".menu-items")?.previousElementSibling?.textContent || "";
+        if(cat && cat !== currentCategory){ currentCategory = cat; content += `<h3 class="menu-category">${currentCategory}</h3>`; }
+        const title = c.querySelector("h3")?.textContent || "";
+        const price = c.querySelector("p")?.textContent || "";
+        content += `<div class="item">${title} — ${price}</div>`;
+      });
+      content += "</div>";
+      const win = window.open("", "_blank", "toolbar=0,location=0,menubar=0");
+      win.document.write(`<html><head><title>Menu - Ganesh Fresh Juice Centre</title>${styles}</head><body>${header}${content}</body></html>`);
+      win.document.close();
+      setTimeout(()=>win.print(), 500);
+    });
+
+    /****************************************************************
+     * Small UX bits
+     ****************************************************************/
+    document.getElementById('floatOrderBtn').addEventListener('click', function(){ document.getElementById('delivery').scrollIntoView({behavior:'smooth'}); setTimeout(()=> document.querySelector("#orderForm input[name='name']").focus(),600); });
+    document.getElementById('closeConfirmBtn').addEventListener('click', ()=>{ document.getElementById('confirmOverlay').classList.remove('visible'); });
+    document.getElementById('copyOrderBtn').addEventListener('click', ()=>{ const code = document.getElementById('confirmOrderNo').textContent; navigator.clipboard?.writeText(code).then(()=>{ const b = document.getElementById('copyOrderBtn'); b.textContent='Copied ✓'; setTimeout(()=>b.textContent='Copy Order',2000); }).catch(()=>alert('Copy not supported.')); });
+
+    // beforeunload warn if trackingActive (kept for compatibility)
+    window.addEventListener('beforeunload', function(e){
+      if(trackingActive){ const msg = 'Location sharing active — leaving will stop sharing.'; e.returnValue = msg; return msg; }
+    });
+
+  </script>
+</body>
+</html>
